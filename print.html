@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Klay Everyday Deli — Menu</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0}
+:root{--terra:#7c3c2b;--terra-d:#5b2a1d;--cream:#f4e8d4;--sand:#e0d0ba;--paper:#f8f2e8;--ink:#2b1913;--muted:#7a6255}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#ccc}
+.page{width:210mm;height:297mm;background:var(--paper);position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column;margin:0 auto 10mm}
+@media print{body{background:none}.page{margin:0}}
+.top{background:var(--terra);color:var(--cream);padding:6mm 13mm 5mm;display:flex;justify-content:space-between;align-items:end}
+.top img{width:30mm}
+.top .t{text-align:right}
+.top .t b{display:block;font-family:Fraunces,serif;font-weight:400;font-style:italic;font-size:30pt;line-height:.9;font-variation-settings:"SOFT" 100}
+.top .t span{font-size:7pt;letter-spacing:.3em;text-transform:uppercase;opacity:.8}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm;padding:4.5mm 13mm 0}
+.strip figure{background:var(--sand);border-radius:3mm;overflow:hidden;position:relative}
+.strip img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.strip.food img{object-position:50% 74%}
+.strip.drink img{object-position:50% 44%;transform:scale(1.45)}
+.strip figcaption{position:absolute;left:2mm;bottom:2mm;background:rgba(248,242,232,.94);border-radius:10mm;padding:1mm 2.6mm;font-size:6.6pt;font-weight:600;color:var(--terra-d)}
+.cols{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0 10mm;padding:5mm 13mm 0;align-content:start}
+.sec{break-inside:avoid;margin-bottom:4.2mm}
+.sec h2{font-family:Fraunces,serif;font-weight:500;font-size:15.5pt;letter-spacing:-.02em;color:var(--terra);display:flex;justify-content:space-between;align-items:baseline;border-bottom:.35mm solid var(--terra);padding-bottom:1.2mm;margin-bottom:2.2mm;font-variation-settings:"SOFT" 100}
+.sec h2 small{font-family:"DM Sans";font-size:6.4pt;letter-spacing:.18em;color:var(--muted);font-weight:600}
+.it{display:grid;grid-template-columns:1fr auto;gap:0 3mm;padding:.95mm 0;border-bottom:.2mm dotted rgba(43,25,19,.22)}
+.it:last-child{border-bottom:0}
+.it b{font-family:Fraunces,serif;font-weight:500;font-size:9.8pt;line-height:1.15}
+.it .p{font-family:Fraunces,serif;font-size:9.8pt;color:var(--terra);text-align:right;white-space:nowrap}
+.it .p i{font-style:normal;color:var(--muted);font-family:"DM Sans";font-size:6pt;margin:0 .6mm 0 1.4mm;letter-spacing:.05em}
+.it p{grid-column:1/-1;font-size:7pt;color:var(--muted);line-height:1.35;margin-top:.4mm}
+.it.star b:after{content:"★";color:var(--terra);font-size:7pt;margin-left:1.4mm;vertical-align:2pt}
+.foot{margin-top:auto;background:var(--terra-d);color:var(--cream);padding:4.5mm 13mm;display:flex;align-items:center;gap:6mm}
+.foot .qr{width:21mm;height:21mm;background:var(--cream);border-radius:2mm;padding:1.4mm;flex:none}
+.foot .qr img{width:100%;height:100%}
+.foot b{font-family:Fraunces,serif;font-weight:400;font-size:15pt;display:block;line-height:1.1}
+.foot span{font-size:7.4pt;opacity:.82;display:block;margin-top:1mm}
+.foot .r{margin-left:auto;text-align:right;font-size:7pt;line-height:1.6;opacity:.85}
+.tight .it{padding:.55mm 0}.tight .it b,.tight .it .p{font-size:9.4pt}.tight .sec{margin-bottom:3.4mm}.tight .sec h2{margin-bottom:1.4mm}
+.note{font-size:6.4pt;color:var(--muted);padding:0 13mm 3mm;text-align:center}
+</style></head><body>
+<div id="pages"></div>
+<script src="data.js"></script>
+<script>
+const M=window.KLAY_MENU, by=Object.fromEntries(M.map(c=>[c.key,c])), ALL={};M.forEach(c=>c.items.forEach(i=>ALL[i.id]=i));
+const STAR=new Set([21765,21767,21768,22829,22310]);
+const it=(i,desc=true)=>`<div class="it ${STAR.has(i.id)?"star":""}"><b>${i.name}</b><span class="p">${i.sizes?`<i>M</i>${i.sizes.M.price}<i>L</i>${i.sizes.L.price}`:(i.price||"build")}</span>${desc&&i.desc?`<p>${i.desc}</p>`:""}</div>`;
+const sec=(k,desc=true,note="")=>`<div class="sec"><h2>${by[k].title}<small>${note||"EGP"}</small></h2>${by[k].items.map(i=>it(i,desc)).join("")}</div>`;
+const strip=(ids,cls)=>`<div class="strip ${cls}">${ids.map(id=>`<figure><img src="img/${id}-1600.webp"><figcaption>${ALL[id].name.replace(" Sandwich","")}</figcaption></figure>`).join("")}</div>`;
+const foot=`<div class="foot"><div class="qr"><img src="qr-order.svg"></div><div><b>Order direct — 20% off your first order</b><span>Scan to order on orderklaydeli.com · delivery &amp; pickup</span></div>
+<div class="r">New Cairo · El Narges · 9 AM – 1 AM<br>6th of October · Golf Central Mall<br>+20 100 600 0348 · @klaydeli</div></div>`;
+const head=t=>`<div class="top"><img src="logo-cream.svg"><div class="t"><span>Everyday Deli · Menu</span><b>${t}</b></div></div>`;
+document.getElementById("pages").innerHTML=`
+<section class="page">${head("Eat")}${strip([21765,21767,21768,21770],"food")}
+<div class="cols"><div>${sec("sandwiches")}${sec("salads")}</div><div>${sec("bowls",true,"Medium · Large")}${sec("byo",false,"Priced by your build")}${sec("sides",false)}${sec("sweets",false)}</div></div>
+<p class="note">★ Klay signatures · All prices in EGP and include VAT &amp; service · Ask our team about allergens</p>${foot}</section>
+<section class="page">${head("Drink")}${strip([22310,22829,21785,21815],"drink")}
+<div class="cols tight"><div>${sec("iced",false)}${sec("hot",false)}${sec("tea",false)}</div><div>${sec("matcha",false)}${sec("blended",false)}${sec("water",false)}</div></div>
+<p class="note">★ Klay signatures · All prices in EGP and include VAT &amp; service</p>${foot}</section>`;
+</script></body></html>
