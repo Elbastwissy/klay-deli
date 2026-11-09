@@ -160,7 +160,7 @@
     const q = qrcode(0, "M"); q.addData(qrUrl); q.make();
     const n = q.getModuleCount(); let d = "";
     for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c},${r}h1v1h-1z`;
-    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" aria-label="QR code to order on Klay"><path d="${d}" fill="#140c08"/></svg>`;
+    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" aria-label="QR code to order on Klay"><path d="${d}" fill="#833A2A"/></svg>`;
   }
   let cardNo = store.get("klay.cardno", 400 + Math.floor(Math.random() * 500));
   function cardHTML(lines, tot, compact) {
@@ -206,21 +206,21 @@
       await document.fonts.load('800 80px "Bricolage Grotesque"');
       const W = 1080, H = 1920, c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
       const load = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
-      let g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#2a160d"); g.addColorStop(1, "#0c0705"); x.fillStyle = g; x.fillRect(0, 0, W, H);
-      const glow = (cx, cy, r, col) => { const gr = x.createRadialGradient(cx, cy, 0, cx, cy, r); gr.addColorStop(0, col); gr.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = gr; x.fillRect(0, 0, W, H); };
-      glow(260, 380, 900, "rgba(255,138,76,.45)"); glow(900, 1600, 800, "rgba(200,50,63,.35)");
+      let g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#9a4733"); g.addColorStop(.5, "#833A2A"); g.addColorStop(1, "#4a1f16"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+      const glow = (cx, cy, r, col) => { const gr = x.createRadialGradient(cx, cy, 0, cx, cy, r); gr.addColorStop(0, col); gr.addColorStop(1, "rgba(131,58,42,0)"); x.fillStyle = gr; x.fillRect(0, 0, W, H); };
+      glow(260, 380, 900, "rgba(247,244,229,.22)"); glow(900, 1600, 800, "rgba(220,200,168,.25)");
       const logo = await load("logo-cream.svg"); if (logo) x.drawImage(logo, 80, 90, 230, 183);
-      x.fillStyle = "rgba(247,236,220,.6)"; x.font = '600 34px "Bricolage Grotesque"'; x.textAlign = "right"; x.fillText(`#KD-${cardNo}`, W - 80, 150);
-      x.textAlign = "left"; x.fillStyle = "#f7ecdc"; x.font = '800 190px "Bricolage Grotesque"'; x.fillText("Your", 72, 470);
-      const tg = x.createLinearGradient(72, 0, 900, 0); tg.addColorStop(0, "#f3bd6b"); tg.addColorStop(1, "#ff8a4c"); x.fillStyle = tg; x.fillText("drop.", 72, 640);
+      x.fillStyle = "rgba(247,244,229,.8)"; x.font = '600 34px "Bricolage Grotesque"'; x.textAlign = "right"; x.fillText(`#KD-${cardNo}`, W - 80, 150);
+      x.textAlign = "left"; x.fillStyle = "#F7F4E5"; x.font = '800 190px "Bricolage Grotesque"'; x.fillText("Your", 72, 470);
+      const tg = x.createLinearGradient(72, 0, 900, 0); tg.addColorStop(0, "#F7F4E5"); tg.addColorStop(1, "#DCC8A8"); x.fillStyle = tg; x.fillText("drop.", 72, 640);
       const hero = await load(cut(cardData.lines[0].id, 1200));
-      if (hero) { const w = 860, h = hero.height * (w / hero.width), hh = Math.min(h, 460), ww = hero.width * (hh / hero.height); x.shadowColor = "rgba(0,0,0,.6)"; x.shadowBlur = 60; x.shadowOffsetY = 40; x.drawImage(hero, (W - ww) / 2, 700 + (460 - hh) / 2, ww, hh); x.shadowColor = "transparent"; }
+      if (hero) { const w = 860, h = hero.height * (w / hero.width), hh = Math.min(h, 460), ww = hero.width * (hh / hero.height); x.shadowColor = "rgba(46,16,10,.55)"; x.shadowBlur = 60; x.shadowOffsetY = 40; x.drawImage(hero, (W - ww) / 2, 700 + (460 - hh) / 2, ww, hh); x.shadowColor = "transparent"; }
       let y = 1250; x.font = '600 40px "Bricolage Grotesque"';
-      cardData.lines.slice(0, 5).forEach(l => { x.fillStyle = "#f7ecdc"; x.textAlign = "left"; x.fillText(`${l.qty > 1 ? l.qty + " × " : ""}${l.name}`.slice(0, 34), 80, y); x.fillStyle = "rgba(247,236,220,.6)"; x.textAlign = "right"; x.fillText(String(l.price), W - 80, y); y += 62; });
-      x.strokeStyle = "rgba(255,214,170,.3)"; x.setLineDash([12, 10]); x.beginPath(); x.moveTo(80, 1530); x.lineTo(W - 80, 1530); x.stroke(); x.setLineDash([]);
-      x.textAlign = "left"; x.fillStyle = "rgba(247,236,220,.6)"; x.font = '500 34px "Bricolage Grotesque"'; x.fillText("Total · EGP", 80, 1600);
-      x.fillStyle = "#f3bd6b"; x.font = '800 110px "Bricolage Grotesque"'; x.fillText(String(cardData.tot), 80, 1700); x.fillStyle = "rgba(247,236,220,.6)"; x.font = '500 32px "Bricolage Grotesque"'; x.fillText("Scan to order on Klay", 80, 1752);
-      if (window.qrcode) { const q = qrcode(0, "M"); q.addData(qrUrl); q.make(); const n = q.getModuleCount(), s = 190, m = s / n, ox = W - 80 - s, oy = 1534; x.fillStyle = "#f7ecdc"; x.fillRect(ox - 14, oy - 14 + 30, s + 28, s + 28); x.fillStyle = "#140c08"; for (let r = 0; r < n; r++) for (let cc = 0; cc < n; cc++) if (q.isDark(r, cc)) x.fillRect(ox + cc * m, oy + 30 + r * m, Math.ceil(m), Math.ceil(m)); }
+      cardData.lines.slice(0, 5).forEach(l => { x.fillStyle = "#F7F4E5"; x.textAlign = "left"; x.fillText(`${l.qty > 1 ? l.qty + " × " : ""}${l.name}`.slice(0, 34), 80, y); x.fillStyle = "rgba(247,244,229,.8)"; x.textAlign = "right"; x.fillText(String(l.price), W - 80, y); y += 62; });
+      x.strokeStyle = "rgba(220,200,168,.5)"; x.setLineDash([12, 10]); x.beginPath(); x.moveTo(80, 1530); x.lineTo(W - 80, 1530); x.stroke(); x.setLineDash([]);
+      x.textAlign = "left"; x.fillStyle = "rgba(247,244,229,.8)"; x.font = '500 34px "Bricolage Grotesque"'; x.fillText("Total · EGP", 80, 1600);
+      x.fillStyle = "#DCC8A8"; x.font = '800 110px "Bricolage Grotesque"'; x.fillText(String(cardData.tot), 80, 1700); x.fillStyle = "rgba(247,244,229,.8)"; x.font = '500 32px "Bricolage Grotesque"'; x.fillText("Scan to order on Klay", 80, 1752);
+      if (window.qrcode) { const q = qrcode(0, "M"); q.addData(qrUrl); q.make(); const n = q.getModuleCount(), s = 190, m = s / n, ox = W - 80 - s, oy = 1534; x.fillStyle = "#F7F4E5"; x.fillRect(ox - 14, oy - 14 + 30, s + 28, s + 28); x.fillStyle = "#833A2A"; for (let r = 0; r < n; r++) for (let cc = 0; cc < n; cc++) if (q.isDark(r, cc)) x.fillRect(ox + cc * m, oy + 30 + r * m, Math.ceil(m), Math.ceil(m)); }
       const blob = await new Promise(r => c.toBlob(r, "image/png"));
       const file = new File([blob], `klay-drop-${cardNo}.png`, { type: "image/png" });
       if (!fine && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "My Klay drop", text: "My Klay order ✦ orderklaydeli.com" }); }
