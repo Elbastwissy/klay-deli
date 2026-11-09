@@ -11,8 +11,8 @@
 <meta property="og:description" content="The Bresaola, warm bowls & shaken coffee. Order direct — 20% off your first order.">
 <meta property="og:image" content="img/21765-1600.webp">
 <link rel="icon" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/BricolageGrotesque-300-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
 <link rel="preload" as="image" href="cut/bresL-1800.webp" imagesrcset="cut/bresL-1000.webp 1000w, cut/bresL-1800.webp 1800w, cut/bresL-2800.webp 2800w" imagesizes="(max-width:760px) 49vw, 604px">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Klay Everyday Deli","servesCuisine":["Deli","Italian","Sandwiches","Coffee"],"telephone":"+201006000348","url":"https://www.orderklaydeli.com","sameAs":["https://www.instagram.com/klaydeli/"],"priceRange":"EGP 200–400","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"265"}}</script>
@@ -26,7 +26,8 @@
       <a class="l" href="#concierge">Concierge</a>
       <a class="l" href="#menu">Menu</a>
       <a class="l" href="#visit">Visit</a>
-      <a class="btn b-red" href="#" data-order>Order now</a>
+      <button class="bagbtn bump-me" id="bagBtn" aria-label="Open your bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="bag-n" hidden>0</span></button>
+      <a class="btn b-red hide-m" href="#" data-order>Order now</a>
     </nav>
   </div>
 </header>
@@ -34,7 +35,7 @@
 <main id="top">
 <section class="cut" id="cut" aria-label="The Bresaola">
   <div class="stage">
-    <div class="mark" id="mark" aria-hidden="true"><img src="logo-terra.svg" alt="" width="1260" height="1000"></div>
+    <div class="mark" id="mark" aria-hidden="true"><img src="logo-mark.svg" alt="" width="1260" height="640"></div>
     <div class="hint" id="hint" aria-hidden="true"><i></i>Scroll to cut it open</div>
     <div class="halves" id="halves">
       <div class="half l" id="hl"><img src="cut/bresL-1800.webp" srcset="cut/bresL-1000.webp 1000w, cut/bresL-1800.webp 1800w, cut/bresL-2800.webp 2800w" sizes="(max-width:760px) 49vw, 604px" width="1956" height="1245" alt="Bresaola focaccia sandwich, left half" fetchpriority="high"></div>
@@ -53,8 +54,9 @@
       <div class="wrap">
         <h1 class="disp">The Bresaola.<span>Klay's most-mentioned sandwich on Google Maps — focaccia, stacked the Italian way.</span></h1>
         <div class="hero-act">
+          <span class="live" id="live"></span>
           <a class="rating" href="#reviews"><b>4.6</b><span class="stars" aria-hidden="true">★★★★★</span><span>265 Google reviews</span></a>
-          <a class="btn b-red" href="#" data-order-id="21765">Order the Bresaola · 360 EGP</a>
+          <button class="btn b-red" data-add-id="21765">Add the Bresaola · 360 EGP</button>
         </div>
       </div>
     </div>
@@ -74,7 +76,7 @@
   <div class="wrap">
     <div class="head">
       <h2 class="disp">Can't decide? Ask Klay.</h2>
-      <p>Answer three quick questions — or type what you feel like — and get a matched order with the total, ready to send.</p>
+      <p>Answer three quick questions — or type what you feel like — and get a matched order with the total. One tap adds it all to your bag.</p>
     </div>
     <div class="grid2">
       <div class="chat" aria-label="Klay concierge">
@@ -129,13 +131,13 @@
     <div class="two">
       <article class="br">
         <h3>New Cairo</h3><p class="where">Gamal Abdel Nasser St., near Nargis 8 — Industrial Area, New Cairo 1</p>
-        <ul><li>Open daily, late into the night</li><li><a href="tel:+201006000348">+20 100 600 0348</a></li><li>Dine in · pickup · delivery</li></ul>
-        <div class="acts"><a class="btn b-red" href="#" data-order>Order from New Cairo</a><a class="btn b-line" href="https://maps.app.goo.gl/FxuGqQdUEmntTysr9" target="_blank" rel="noopener">Directions &amp; hours</a></div>
+        <ul><li>Online orders daily, 9 AM – 1 AM</li><li><a href="tel:+201006000348">+20 100 600 0348</a></li><li>Dine in · pickup · delivery</li></ul>
+        <div class="acts"><a class="btn b-red" href="https://www.orderklaydeli.com/?branch_id=318&utm_source=klay-website&utm_medium=referral&utm_campaign=site" target="_blank" rel="noopener">Order from New Cairo</a><a class="btn b-line" href="https://maps.app.goo.gl/FxuGqQdUEmntTysr9" target="_blank" rel="noopener">Directions &amp; hours</a></div>
       </article>
       <article class="br">
         <h3>6th of October</h3><p class="where">Golf Central, Palm Hills — 6th of October</p>
-        <ul><li>Open daily, late into the night</li><li>Breakfast, lunch &amp; coffee</li><li>Dine in · pickup · delivery</li></ul>
-        <div class="acts"><a class="btn b-red" href="#" data-order>Order from October</a><a class="btn b-line" href="https://maps.app.goo.gl/XLF786LsrRgXWiDf9" target="_blank" rel="noopener">Directions &amp; hours</a></div>
+        <ul><li>Online orders daily, 9 AM – 11 PM</li><li><a href="tel:+201070055624">+20 107 005 5624</a></li><li>Dine in · pickup · delivery</li></ul>
+        <div class="acts"><a class="btn b-red" href="https://www.orderklaydeli.com/?branch_id=330&utm_source=klay-website&utm_medium=referral&utm_campaign=site" target="_blank" rel="noopener">Order from October</a><a class="btn b-line" href="https://maps.app.goo.gl/XLF786LsrRgXWiDf9" target="_blank" rel="noopener">Directions &amp; hours</a></div>
       </article>
     </div>
   </div>
@@ -157,7 +159,9 @@
   </div>
 </footer>
 
-<div class="mbar" id="mbar"><a href="#" data-order><span>Order now<small>20% off your first order</small></span><i>Order</i></a></div>
+<div class="mbar bump-me" id="mbar"><a href="#" data-order><span class="mb-t">Order now<small>20% off your first order</small></span><i class="mb-i">Order</i></a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog class="bag" id="bag" aria-label="Your bag"><div class="bag-in" id="bagIn"></div></dialog>
 <dialog class="sheet" id="sheet" aria-label="Item details"><div class="sh-in" id="shIn"></div></dialog>
 
 <script src="data.js"></script>
