@@ -122,7 +122,7 @@
     bagIn.innerHTML = `
       <div class="bg-h"><h3 tabindex="-1" autofocus>Your bag <small>${n} item${n > 1 ? "s" : ""}</small></h3><button class="x2" data-close-bag aria-label="Close bag">✕</button></div>
       <div class="bg-scroll">
-        ${checklist ? `<div class="guide"><b>Finish on Klay's checkout</b><span>${esc(br.full)} is already selected. Tap each item, press “Add to Cart” there, then come back for the next. Tick them as you go.</span></div>` : ""}
+        ${checklist ? `<div class="guide"><b>Finish on Klay's checkout</b><span>Klay's ordering site opened in a new tab. Pick delivery or pickup (${esc(br.full)}) once, press “Add to Cart”, then come back here for the next item.</span></div>` : ""}
         <ul class="lines">${bag.map(l => `
           <li class="ln2 ${l.done ? "done" : ""}">
             <span class="th">${cutImg(l.id, "", "80px", true)}</span>
