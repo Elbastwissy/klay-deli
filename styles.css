@@ -2,7 +2,7 @@
 :root{
   --void:#0c0705;--void-2:#140c08;--void-3:#1d120d;
   --ember:#e2643f;--ember-2:#ff8a4c;--gold:#f3bd6b;--terra:#7c3c2b;--cup:#c8323f;
-  --cream:#f7ecdc;--mute:rgba(247,236,220,.62);--faint:rgba(247,236,220,.38);
+  --cream:#f7ecdc;--mute:rgba(247,236,220,.62);--faint:rgba(247,236,220,.5);
   --glass:rgba(255,236,214,.065);--glass-2:rgba(255,236,214,.11);--line:rgba(255,236,214,.12);
   --disp:"Bricolage Grotesque",system-ui,sans-serif;--body:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Courier Prime","Courier New",monospace;
