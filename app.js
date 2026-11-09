@@ -8,7 +8,8 @@
   const PW = { 21773: [480, 960], 21823: [480, 960, 1600, 2400] };
   const photoSet = id => (PW[id] || [480, 960, 1600, 2400, 4000]).map(w => `img/${id}-${w}.webp ${w}w`).join(", ");
   const cut = (id, w = 600) => `cut/${id}-${w}.webp`;
-  const cutImg = (id, alt, sz = "200px") => `<img src="${cut(id)}" srcset="${cut(id, 600)} 600w, ${cut(id, 1200)} 1200w" sizes="${sz}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+  const dim = id => (window.CUT_DIM || {})[id] || [600, 400];
+  const cutImg = (id, alt, sz = "200px") => `<img src="${cut(id)}" srcset="${cut(id, 600)} 600w, ${cut(id, 1200)} 1200w" sizes="${sz}" width="${dim(id)[0]}" height="${dim(id)[1]}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // order links
@@ -46,8 +47,8 @@
   /* ---------- MOST LOVED rail ---------- */
   const loved = Object.values(ALL).filter(i => i.loved).sort((a, b) => a.loved.n - b.loved.n);
   $("#rail").innerHTML = loved.map(i => `
-    <button class="tagc" data-open="${i.id}" aria-label="${esc(i.name)}, ${i.price} EGP">
-      <span class="rank">${String(i.loved.n).padStart(2, "0")}</span>
+    <button class="tagc" data-open="${i.id}">
+      <span class="rank" aria-hidden="true">${String(i.loved.n).padStart(2, "0")}</span>
       <span class="pt">${i.price}<small>EGP</small></span>
       <span class="pic">${cutImg(i.id, i.name, "340px")}</span>
       <h3>${esc(i.name)}</h3>
@@ -80,7 +81,7 @@
   }
   function picks(items) {
     const w = document.createElement("div"); w.className = "picks";
-    w.innerHTML = items.map(i => `<button class="pick" data-open="${i.id}"><img src="${cut(i.id)}" alt=""><span><b>${esc(i.name)}</b><span>${i.price} EGP</span></span></button>`).join("");
+    w.innerHTML = items.map(i => `<button class="pick" data-open="${i.id}"><img src="${cut(i.id)}" width="${dim(i.id)[0]}" height="${dim(i.id)[1]}" alt=""><span><b>${esc(i.name)}</b><span>${i.price} EGP</span></span></button>`).join("");
     msgs.append(w); scrollChat();
   }
   const Q = {
@@ -213,7 +214,7 @@
         <div class="pp">${cur.price ? cur.price + "<small>EGP · incl. VAT &amp; service</small>" : "<small style='margin:0'>Priced by your build</small>"}</div>
         <a class="btn b-red" href="${orderUrl(cur.id)}" target="_blank" rel="noopener">${i.cat === "byo" ? "Start building" : "Order this"}</a>
         <p class="fine">Opens Klay's ordering site · 20% off your first order when you sign up</p>
-        <div class="pair"><b>Goes well with</b><div class="row">${pairs.map(p => `<button data-open="${p.id}"><img src="${cut(p.id)}" alt=""><span><b>${esc(p.name)}</b><span>${p.price} EGP</span></span></button>`).join("")}</div></div>
+        <div class="pair"><b>Goes well with</b><div class="row">${pairs.map(p => `<button data-open="${p.id}"><img src="${cut(p.id)}" width="${dim(p.id)[0]}" height="${dim(p.id)[1]}" alt=""><span><b>${esc(p.name)}</b><span>${p.price} EGP</span></span></button>`).join("")}</div></div>
       </div>`;
     shIn.querySelectorAll("[data-size]").forEach(b => b.onclick = () => openItem(id, b.dataset.size));
     if (!sheet.open) sheet.showModal();

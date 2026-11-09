@@ -19,7 +19,7 @@
 
   // What guests say — real Google Maps reviews (New Cairo & 6th of October), quoted short.
   const LOVED = {
-    21765: { n: 1, q: "Bresaola Sandwich 10/10", note: "Mentioned in 20+ Google reviews — more than any other item" },
+    21765: { n: 1, q: "The bresaola sandwich is amazing I’ve had it several times", note: "Mentioned in 20+ Google reviews — more than any other item" },
     21767: { n: 3, q: "Pistachio roast beef Sandwich 10/10 (amazingly delicious)" },
     21766: { n: 4, q: "The roast beef focaccia was honestly the best I’ve ever had!" },
     21778: { n: 2, q: "I’m addicted to their chicken bowl. Great portions, consistent quality and unique taste." },

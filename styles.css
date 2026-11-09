@@ -1,6 +1,6 @@
 :root{
   --esp:#1d0f0a;--esp-2:#2a1610;--terra:#7c3c2b;--terra-l:#a85a43;--cup:#a3313a;
-  --sand:#e0d0ba;--sand-2:#eadfcd;--paper:#f6efe4;--ink:#1d0f0a;--muted:#7a6153;
+  --sand:#e0d0ba;--sand-2:#eadfcd;--paper:#f6efe4;--ink:#1d0f0a;--muted:#5e4639;
   --cream:#f4e8d4;--pesto:#5d7a2c;
   --disp:"Bricolage Grotesque",system-ui,sans-serif;
   --body:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -88,13 +88,13 @@ button{background:none;border:0;cursor:pointer}
 .rail.drag{cursor:grabbing;scroll-snap-type:none}
 .tagc{scroll-snap-align:start;position:relative;background:var(--paper);border-radius:22px;padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;text-align:left;min-height:430px;transition:transform .4s var(--ease)}
 .tagc:hover{transform:translateY(-6px)}
-.tagc .rank{font-family:var(--disp);font-weight:800;font-variation-settings:"opsz" 96,"wdth" 75;font-size:64px;line-height:.8;color:var(--terra);opacity:.22}
+.tagc .rank{font-family:var(--disp);font-weight:800;font-variation-settings:"opsz" 96,"wdth" 75;font-size:64px;line-height:.8;color:var(--terra);opacity:.3}
 .tagc .pic{height:170px;display:grid;place-items:center;margin:-8px -6px 0}
 .tagc .pic img{max-height:170px;width:auto;filter:drop-shadow(0 18px 18px rgba(29,15,10,.28));transition:transform .6s var(--ease)}
 .tagc:hover .pic img{transform:scale(1.06) rotate(-2deg)}
 .tagc h3{font-family:var(--disp);font-weight:750;font-variation-settings:"opsz" 48,"wdth" 85;font-size:25px;line-height:1.05;letter-spacing:-.015em}
 .tagc q{font-size:15px;color:var(--muted);line-height:1.45;quotes:"“" "”"}
-.tagc .src{font-size:12px;color:var(--muted);opacity:.8;margin-top:-4px}
+.tagc .src{font-size:12px;color:var(--muted);margin-top:-4px}
 .tagc .pt{position:absolute;top:18px;right:18px;background:var(--cup);color:#fff;font-family:var(--disp);font-weight:800;font-variation-settings:"opsz" 48,"wdth" 75;font-size:26px;line-height:1;padding:8px 12px 7px;border-radius:10px;transform:rotate(3deg)}
 .tagc .pt small{font-family:var(--body);font-size:10px;font-weight:600;margin-left:3px;font-variation-settings:"wdth" 100}
 .rail-nav{display:flex;gap:10px}
