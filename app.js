@@ -202,7 +202,7 @@
   /* =================== MOST LOVED =================== */
   const loved = Object.values(ALL).filter(i => i.loved).sort((a, b) => a.loved.n - b.loved.n);
   $("#rail").innerHTML = loved.map(i => `
-    <article class="tagc" data-open="${i.id}" tabindex="0" role="button" aria-label="${esc(i.name)}">
+    <div class="tagc" data-open="${i.id}" tabindex="0" role="button">
       <span class="rank" aria-hidden="true">${String(i.loved.n).padStart(2, "0")}</span>
       <span class="pt">${i.price}<small>EGP</small></span>
       <span class="pic">${cutImg(i.id, i.name, "340px")}</span>
@@ -210,7 +210,7 @@
       <q>${esc(i.loved.q)}</q>
       <span class="src">${i.loved.note ? esc(i.loved.note) : "Google review"}</span>
       <span class="tag-add">${stepper(i.id)}</span>
-    </article>`).join("");
+    </div>`).join("");
   const rail = $("#rail");
   $$("[data-rail]").forEach(b => b.onclick = () => rail.scrollBy({ left: +b.dataset.rail * rail.clientWidth * .8, behavior: reduce ? "auto" : "smooth" }));
   let dx = null, sl = 0, moved = false;
@@ -318,10 +318,10 @@
       const d = DRINK.has(k);
       return `<div class="mcat" id="m-${k}"><h3>${c.title}<small>${items.length} ${items.length === 1 ? "item" : "items"}</small></h3>
         <div class="${d ? "dgrid" : "fgrid"}">${items.map(i => d ? `
-          <article class="dr" data-open="${i.id}" tabindex="0" role="button" aria-label="${esc(i.name)}, ${i.price} EGP"><span class="pic">${cutImg(i.id, i.name, "64px")}</span><span class="tx"><b>${esc(i.name)}</b><span>${i.price} EGP</span></span>${stepper(i.id)}</article>` : `
-          <article class="it" data-open="${i.id}" tabindex="0" role="button" aria-label="${esc(i.name)}">${i.loved ? `<span class="fav">Guest favourite</span>` : ""}<span class="pic">${cutImg(i.img, i.name, "(max-width:760px) 45vw, 260px")}</span>
+          <div class="dr" data-open="${i.id}" tabindex="0" role="button"><span class="pic">${cutImg(i.id, i.name, "64px")}</span><span class="tx"><b>${esc(i.name)}</b><span>${i.price} EGP</span></span>${stepper(i.id)}</div>` : `
+          <div class="it" data-open="${i.id}" tabindex="0" role="button">${i.loved ? `<span class="fav">Guest favourite</span>` : ""}<span class="pic">${cutImg(i.img, i.name, "(max-width:760px) 45vw, 260px")}</span>
             <h4>${esc(i.name)}</h4><p>${esc(i.desc)}</p>
-            <span class="pr"><span>${i.price ? i.price + " <small>EGP</small>" : "<small>Priced by your build</small>"}${i.sizes ? " <small>· M / L</small>" : ""}</span>${i.price ? stepper(i.id) : `<span class="qa"><span class="s0 ghostbtn" aria-hidden="true">›</span></span>`}</span></article>`).join("")}</div></div>`;
+            <span class="pr"><span>${i.price ? i.price + " <small>EGP</small>" : "<small>Priced by your build</small>"}${i.sizes ? " <small>· M / L</small>" : ""}</span>${i.price ? stepper(i.id) : `<span class="qa"><span class="s0 ghostbtn" aria-hidden="true">›</span></span>`}</span></div>`).join("")}</div></div>`;
     }).join("");
     $("#none").style.display = shown ? "none" : "block";
     $$(".cat").forEach(b => b.style.display = document.getElementById("m-" + b.dataset.cat) ? "" : "none");
