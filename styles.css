@@ -505,3 +505,54 @@ body:after{opacity:.06}
   .title .ch,.sub,.h-act{opacity:1;transform:none;filter:none}
   body:after{display:none}
 }
+
+/* ===== site-v6: chef build / anatomy stage ===== */
+.sh-ph.kc{display:grid;place-items:end center;min-height:520px}
+.sh-ph.kc>.kc-svg{grid-area:1/1}
+.kc-svg{width:100%;height:auto;aspect-ratio:640/600;max-height:calc(100dvh - 40px);display:block;overflow:visible;transition:opacity .45s var(--ease,ease),transform .6s var(--spring,ease)}
+.sh-ph img.kc-photo{position:absolute;inset:0;margin:auto;width:86%;height:80%;max-height:none;object-fit:contain;opacity:0;transform:scale(.82) rotate(-6deg);transition:opacity .4s ease,transform .8s var(--spring,ease);animation:none;pointer-events:none}
+.sh-ph.m-photo img.kc-photo{opacity:1;transform:none;pointer-events:auto}
+.sh-ph.m-photo .kc-svg{opacity:0;transform:scale(.94);pointer-events:none}
+.sh-ph.kc .ph4k{top:14px;bottom:auto;opacity:0;pointer-events:none;transition:opacity .3s}
+.sh-ph.kc.m-photo .ph4k{opacity:1;pointer-events:auto}
+.kc-seg{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:3px;padding:4px;border-radius:999px;background:rgba(247,244,229,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(131,58,42,.16);box-shadow:0 10px 26px -12px rgba(58,22,14,.45)}
+.kc-seg button{border:0;background:none;font:650 12.5px/1 var(--body);color:#833A2A;padding:9px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
+.kc-seg button:hover{background:rgba(131,58,42,.1)}
+.kc-seg button[aria-pressed="true"]{background:#833A2A;color:#F7F4E5}
+.kc-seg button:focus-visible{outline:2px solid #833A2A;outline-offset:2px}
+.kc-svg text{font-family:var(--disp)}
+.kc-tt{font-size:15px;font-weight:750;letter-spacing:.26em;fill:#833A2A;text-anchor:middle}
+.kc-lt{font-size:19px;font-weight:720;fill:#3A160E;font-variation-settings:"wdth" 82}
+.kc-ld{fill:none;stroke:#833A2A;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.kc-dot{fill:#F7F4E5;stroke:#833A2A;stroke-width:2.4}
+.kc-q{font-size:22px;font-weight:800;fill:#833A2A;text-anchor:middle}
+.kc-apron{font-size:25px;font-weight:800;fill:#F7F4E5;text-anchor:middle;letter-spacing:.06em;font-variation-settings:"wdth" 80}
+.kc-hatk{font-size:12px;font-weight:800;fill:#F7F4E5;text-anchor:middle}
+.kc-cupt{font-size:16px;font-weight:800;fill:#833A2A;text-anchor:middle;letter-spacing:.12em;opacity:.9}
+.kc-bowlt{font-size:17px;font-weight:800;fill:#F7F4E5;text-anchor:middle;letter-spacing:.16em}
+.kc-jart{font-size:19px;font-weight:800;fill:#833A2A;text-anchor:middle;letter-spacing:.12em}
+.kc-jars{font-size:10px;font-weight:700;fill:#833A2A;text-anchor:middle;letter-spacing:.2em}
+.kc-lidt{font-size:13px;font-weight:800;fill:#F7F4E5;text-anchor:middle;letter-spacing:.2em}
+.kc-ctr{font-size:22px;font-weight:800;fill:rgba(247,244,229,.2);text-anchor:middle;letter-spacing:.34em}
+.kc-bubt{font-size:20px;font-weight:780;fill:#833A2A;text-anchor:middle}
+.kc-stt{font-size:11px;font-weight:750;fill:#F7F4E5;letter-spacing:.06em}
+.kc-stc{font-size:30px;font-weight:800;fill:#F7F4E5;text-anchor:middle}
+.kc-bobon{animation:kcBob 3.4s ease-in-out infinite}
+@keyframes kcBob{50%{transform:translateY(-4px)}}
+.kc-eye{transform-box:fill-box;transform-origin:center;animation:kcBlink 4.6s infinite}
+@keyframes kcBlink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.kc-breath{animation:kcBr 3.6s ease-in-out infinite}
+@keyframes kcBr{50%{transform:translateY(2.5px)}}
+.kc-twk{transform-box:fill-box;transform-origin:center;animation:kcTw 2.8s ease-in-out infinite}
+@keyframes kcTw{50%{opacity:.06;transform:scale(.55)}}
+.kc-steam{opacity:0;transition:opacity .6s}
+.kc-steam.on{opacity:1}
+.kc-steam path{fill:none;stroke:rgba(58,22,14,.32);stroke-width:4;stroke-linecap:round;animation:kcSt 2.4s ease-in-out infinite}
+@keyframes kcSt{0%{transform:translateY(8px);opacity:0}40%{opacity:1}100%{transform:translateY(-16px);opacity:0}}
+.kc-ly,.kc-lb{transition:opacity .25s}
+.kc-svg.foc .kc-ly:not(.on),.kc-svg.foc .kc-lb:not(.on){opacity:.22}
+.kc-svg.foc .kc-lb.on .kc-lt{fill:#833A2A}
+.m-anat .kc-ly,.m-anat .kc-lb{cursor:pointer}
+.m-anat .kc-straw{opacity:0}
+@media (max-width:760px){.sh-ph.kc{min-height:0;aspect-ratio:640/600}.kc-seg{bottom:10px}.kc-seg button{padding:8px 10px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){.kc-bobon,.kc-eye,.kc-breath,.kc-twk,.kc-steam path{animation:none}}

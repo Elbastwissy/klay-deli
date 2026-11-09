@@ -429,14 +429,18 @@
   const sheet = $("#sheet"), shIn = $("#shIn");
   const PAIR = { food: [21759, 22310, 21824], drink: [21765, 21824, 21759] };
   let sh = { id: null, size: null, qty: 1 };
+  let chefCtl = null;
   function openItem(id, size, keepQty) {
     const i = ALL[id]; if (!i) return;
+    const sameStage = keepQty && sheet.open && sh.id === id ? shIn.querySelector(".sh-ph") : null;
+    if (!sameStage && chefCtl) { chefCtl.stop(); chefCtl = null; }
+    const chefOK = !!(window.KlayChef && window.KlayChef.has(id));
     sh = { id, size: i.sizes ? (size || "M") : null, qty: keepQty ? sh.qty : 1 };
     const d = DRINK.has(i.cat), unit = sh.size ? i.sizes[sh.size].price : i.price, pid = sh.size ? i.sizes[sh.size].id : i.id;
     const pairs = (d ? PAIR.drink : PAIR.food).filter(p => p !== i.id).slice(0, 2).map(p => ALL[p]);
     shIn.innerHTML = `
       <button class="x" aria-label="Close" data-close>✕</button>
-      <div class="sh-ph"><span class="grab" aria-hidden="true"></span><img src="${cut(i.img, 1200)}" srcset="${cut(i.img, 1200)} 1200w, ${cut(i.img, 2400)} 2400w" sizes="(max-width:760px) 90vw, 55vw" alt="${esc(i.name)}"><a class="ph4k chip2 glass" href="img/${i.img}-${i.img === 21773 ? 960 : i.img === 21823 ? 2400 : 4000}.webp" target="_blank" rel="noopener">View 4K photo ↗</a></div>
+      <div class="sh-ph${chefOK ? " kc" : ""}"><span class="grab" aria-hidden="true"></span>${chefOK ? `<div class="kc-seg" role="group" aria-label="View"><button type="button" data-kc="build" aria-pressed="false">▶ Chef build</button><button type="button" data-kc="anat" aria-pressed="false">Anatomy</button><button type="button" data-kc="photo" aria-pressed="false">Photo</button></div>` : ""}<img class="${chefOK ? "kc-photo" : ""}" src="${cut(i.img, 1200)}" srcset="${cut(i.img, 1200)} 1200w, ${cut(i.img, 2400)} 2400w" sizes="(max-width:760px) 90vw, 55vw" alt="${esc(i.name)}"><a class="ph4k chip2 glass" href="img/${i.img}-${i.img === 21773 ? 960 : i.img === 21823 ? 2400 : 4000}.webp" target="_blank" rel="noopener">View 4K photo ↗</a></div>
       <div class="sh-b">
         <span class="k">${byKey[i.cat].title}</span><h3>${esc(i.name)}</h3><p class="d">${esc(i.desc)}</p>
         ${i.loved ? `<blockquote>“${esc(i.loved.q)}”<span>Google review</span></blockquote>` : ""}
@@ -447,10 +451,13 @@
         : `<a class="btn b-fire" style="width:100%;height:58px" href="${productUrl(pid)}" target="_blank" rel="noopener">Start building on Klay online</a><p class="fine">Build-your-own is priced by what you choose, so it's built on Klay's ordering site.</p>`}
         <div class="pair"><b>Goes well with</b><div class="row">${pairs.map(p => `<button data-open="${p.id}"><img src="${cut(p.id)}" width="${dim(p.id)[0]}" height="${dim(p.id)[1]}" alt=""><span><b>${esc(p.name)}</b><span>${p.price} EGP</span></span></button>`).join("")}</div></div>
       </div>`;
+    if (sameStage) shIn.querySelector(".sh-ph").replaceWith(sameStage);
     if (!sheet.open) { sheet.showModal(); lock(true); }
+    if (!sameStage && chefOK) chefCtl = window.KlayChef.mount(shIn.querySelector(".sh-ph"), i);
+    if (sameStage) return;
     const sb = shIn.querySelector(".sh-b"); if (sb) sb.scrollTop = 0; shIn.scrollTop = 0;
   }
-  sheet.addEventListener("close", () => { if (!bagD.open && !dcd.open) lock(false); });
+  sheet.addEventListener("close", () => { if (chefCtl) { chefCtl.stop(); chefCtl = null; } if (!bagD.open && !dcd.open) lock(false); });
   sheet.addEventListener("click", e => {
     if (e.target === sheet || e.target.closest("[data-close]")) { sheet.close(); return; }
     const sz = e.target.closest("[data-size]"); if (sz && !sz.closest("[data-step]")) { openItem(sh.id, sz.dataset.size, true); return; }
